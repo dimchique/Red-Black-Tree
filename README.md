@@ -40,5 +40,10 @@ Private:
 - **Symmetric_Bypass** (TreeLeaf* Leaf1, TreeLeaf* Leaf2) -- A recursive symmetrical tree traversal function that works in tandem with the Compare method. Compares element by element.
 - **Clear_Tree** (TreeLeaf* Leaf) -- An overloaded function that recursively clears the leaves of a tree.
 
+
+## Annotation
+
+The code turned out, in my opinion, crooked and raw, I would really like it not to be so, but I'm too lazy to fix something. The main thing is it works. I hope these materials will somehow help someone in the future.
+
 ##
 *The code was executed in Visual Studio 2022, "Console application" template.*
