@@ -17,7 +17,6 @@ class RBT final
 	struct TreeLeaf
 	{
 		ListNode* key;  // nn.nn.nn Код направления
-		ListNode* equals;
 		TreeLeaf* left;
 		TreeLeaf* right;
 		TreeLeaf* parent;
@@ -278,11 +277,9 @@ private:
 	TreeLeaf* Find_MinRight(TreeLeaf* Leaf)
 	{
 		TreeLeaf* current = Leaf;
-
-		if (current->right != TNull)
-		{
-			current = current->right;
 			
+		if (current->left != TNull)
+		{
 			while (current->left != TNull)
 			{
 				current = current->left;
@@ -292,11 +289,12 @@ private:
 		}
 		else
 		{
-			return TNull;
+			return current;
 		}
+			
 	}
 
-	void Add_Equals(ListNode* head, ListNode* equal)
+	void Add_Equal(ListNode* head, ListNode* equal)
 	{
 		ListNode* current = head;
 
@@ -307,6 +305,18 @@ private:
 
 		current->next = equal;
 
+	}
+
+	void Delete_Equal(ListNode* Head)
+	{
+		ListNode* current = Head;
+		while (current->next->next != NULL)
+		{
+			current = current->next;
+		}
+
+		delete current->next;
+		current->next = NULL;
 	}
 
 	int Count_Equals(ListNode* head)
@@ -444,7 +454,6 @@ public:
 		root = NULL;
 
 		TNull->color = BLACK;
-		TNull->equals = NULL;
 		TNull->key = NULL;
 		TNull->left = NULL;
 		TNull->parent = NULL;
@@ -460,7 +469,6 @@ public:
 		leaf->parent = TNull;
 		leaf->left = TNull;
 		leaf->right = TNull;
-		leaf->equals = NULL;
 
 		if (root == NULL)
 		{
@@ -486,7 +494,7 @@ public:
 			if (Node_isEqualByKey(current->key, ckey))
 			{
 				delete leaf;
-				Add_Equals(current->key, ckey);
+				Add_Equal(current->key, ckey);
 			}
 			else if (Node_compareByKey(current->key, ckey))
 			{
@@ -526,9 +534,20 @@ public:
 				}
 			}
 
-			if (current != TNull) { Delete_Leaf(current); }
+			if (current != TNull)
+			{ 
+				if (Count_Equals(current->key) == 0)
+				{
+					delete current->key;
+					current->key = NULL;
+					Delete_Leaf(current);
+				}
+				else
+				{
+					Delete_Equal(current->key);
+				}
+			}
 		}
-
 	}
 
 	void Clear_Tree()
@@ -626,18 +645,18 @@ int main(){
 	one.Add_Leaf(15, 14, 44);
 	one.Add_Leaf(15, 26, 44);
 	one.Add_Leaf(15, 25, 44);
+	one.Add_Leaf(15, 26, 44);
+	one.Add_Leaf(15, 25, 44);
 	one.Add_Leaf(16, 26, 45);
-
 	one.Add_Leaf(12, 15, 44);
 	one.Add_Leaf(12, 14, 44);
 	one.Add_Leaf(12, 26, 44);
 
 	one.Delete_Leaf(12, 26, 44);
-
 	one.Delete_Leaf(15, 15, 44);
 
 	one.Print_Tree(2);
 
 
-	
+	return 0;	
 }
