@@ -248,7 +248,7 @@ private:
 		}
 		else
 		{
-			temp2 = Find_MinRight(Leaf->right);
+			temp2 = Find_Minimum(Leaf->right);
 			tempOC = temp2->color;
 			temp1 = temp2->right;
 			if (temp2->parent == Leaf)
@@ -274,7 +274,7 @@ private:
 		}
 	}
 
-	TreeLeaf* Find_MinRight(TreeLeaf* Leaf)
+	TreeLeaf* Find_Minimum(TreeLeaf* Leaf)
 	{
 		TreeLeaf* current = Leaf;
 			
